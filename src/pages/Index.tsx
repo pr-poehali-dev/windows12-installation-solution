@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/9d77c771-6d38-4685-b1a5-64a1c83fbb0e/files/ca5b62e0-79e2-4280-984c-02c95113b46b.jpg";
@@ -11,6 +11,9 @@ const STEPS = [
     desc: "Убедитесь что ваш ПК соответствует минимальным требованиям Windows 12: 64-бит процессор, 8 ГБ RAM, 64 ГБ диск, TPM 2.0.",
     icon: "Cpu",
     tip: "Проверить TPM: Win+R → tpm.msc",
+    img: "https://cdn.poehali.dev/projects/9d77c771-6d38-4685-b1a5-64a1c83fbb0e/files/f1a4437e-26b3-4067-b7a0-02bcbb007f3c.jpg",
+    color: "from-blue-600/30 to-blue-900/10",
+    badge: "С этого начинаем",
   },
   {
     num: "02",
@@ -18,6 +21,9 @@ const STEPS = [
     desc: "Сохраните все важные файлы на внешний диск или облако. Установка сотрёт данные на системном диске.",
     icon: "HardDrive",
     tip: "Используйте OneDrive или Яндекс.Диск",
+    img: "https://cdn.poehali.dev/projects/9d77c771-6d38-4685-b1a5-64a1c83fbb0e/files/615f4af1-d64d-4600-bea2-8e10514ddcd3.jpg",
+    color: "from-orange-600/30 to-orange-900/10",
+    badge: "Важно — не пропускайте",
   },
   {
     num: "03",
@@ -25,6 +31,9 @@ const STEPS = [
     desc: "Используйте только официальный инструмент Microsoft Media Creation Tool. Никогда не качайте ISO с торрентов.",
     icon: "Download",
     tip: "Сайт: microsoft.com/ru-ru/software-download",
+    img: "https://cdn.poehali.dev/projects/9d77c771-6d38-4685-b1a5-64a1c83fbb0e/files/68898592-6660-40e9-ac81-d0beea942b7f.jpg",
+    color: "from-cyan-600/30 to-cyan-900/10",
+    badge: "Только официальный сайт",
   },
   {
     num: "04",
@@ -32,6 +41,9 @@ const STEPS = [
     desc: "После загрузки проверьте контрольную сумму SHA-256 файла ISO. Она должна совпадать с официальной на сайте Microsoft.",
     icon: "ShieldCheck",
     tip: "PowerShell: Get-FileHash file.iso -Algorithm SHA256",
+    img: "https://cdn.poehali.dev/projects/9d77c771-6d38-4685-b1a5-64a1c83fbb0e/files/ca5b62e0-79e2-4280-984c-02c95113b46b.jpg",
+    color: "from-green-600/30 to-green-900/10",
+    badge: "Защита от вирусов",
   },
   {
     num: "05",
@@ -39,6 +51,9 @@ const STEPS = [
     desc: "Используйте Rufus или официальный Media Creation Tool для записи образа на USB-накопитель (минимум 8 ГБ).",
     icon: "Usb",
     tip: "Rufus бесплатен и безопасен: rufus.ie",
+    img: "https://cdn.poehali.dev/projects/9d77c771-6d38-4685-b1a5-64a1c83fbb0e/files/75341ca1-7329-4882-a1c4-58140172fcd8.jpg",
+    color: "from-purple-600/30 to-purple-900/10",
+    badge: "Нужна флешка 8 ГБ",
   },
   {
     num: "06",
@@ -46,6 +61,9 @@ const STEPS = [
     desc: "Загрузитесь с USB-накопителя через меню BIOS/UEFI (Del, F2, F12 при старте ПК) и следуйте инструкциям установщика.",
     icon: "Play",
     tip: "Выберите 'Выборочная установка' для чистой системы",
+    img: "https://cdn.poehali.dev/projects/9d77c771-6d38-4685-b1a5-64a1c83fbb0e/files/d8e31a62-a70e-42f5-b102-8f065e599f2b.jpg",
+    color: "from-primary/30 to-primary/5",
+    badge: "Финальный шаг!",
   },
 ];
 
@@ -144,19 +162,17 @@ export default function Index() {
                 <div className="flex flex-wrap gap-4">
                   <button
                     onClick={() => setActiveSection("guide")}
-                    className="neon-btn text-white font-semibold px-8 py-3.5 rounded-xl flex items-center gap-2"
+                    className="neon-btn text-white font-bold px-10 py-5 rounded-2xl flex items-center gap-3 text-xl shadow-2xl"
+                    style={{ boxShadow: "0 0 40px rgba(0,153,255,0.6), 0 8px 32px rgba(0,0,0,0.4)" }}
                   >
-                    <Icon name="BookOpen" size={18} />
-                    Начать установку
-                  </button>
-                  <button
-                    onClick={() => setActiveSection("guide")}
-                    className="px-8 py-3.5 rounded-xl border border-border text-foreground font-medium hover:border-primary hover:text-primary transition-all flex items-center gap-2"
-                  >
-                    <Icon name="ShieldCheck" size={18} />
-                    Проверить образ
+                    <Icon name="Rocket" size={24} />
+                    🚀 НАЧАТЬ УСТАНОВКУ
                   </button>
                 </div>
+                <p className="text-muted-foreground text-sm mt-4 flex items-center gap-2">
+                  <Icon name="Clock" size={14} />
+                  Займёт около 30 минут · 6 простых шагов
+                </p>
               </div>
 
               <div className="relative animate-float hidden lg:block">
@@ -238,130 +254,141 @@ export default function Index() {
             <p className="text-muted-foreground text-lg max-w-2xl">6 простых шагов для безопасной установки Windows 12 с нуля</p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* STEPS */}
-            <div className="lg:col-span-2 space-y-4">
-              {STEPS.map((step, i) => (
-                <div
-                  key={i}
-                  className={`rounded-2xl p-6 cursor-pointer transition-all duration-300 border ${
-                    activeStep === i ? "neon-border bg-secondary/30" : "glass-card border-transparent hover:border-primary/30"
-                  }`}
-                  onClick={() => setActiveStep(activeStep === i ? -1 : i)}
-                >
-                  <div className="flex items-start gap-4">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all ${activeStep === i ? "neon-btn" : "bg-secondary"}`}>
-                      <Icon name={step.icon} size={20} className={activeStep === i ? "text-white" : "text-primary"} />
+          {/* STEP CARDS — full width */}
+          <div className="space-y-6 mb-12">
+            {STEPS.map((step, i) => (
+              <div
+                key={i}
+                className={`rounded-3xl overflow-hidden border transition-all duration-300 cursor-pointer bg-gradient-to-r ${step.color} ${
+                  activeStep === i ? "neon-border" : "border-border hover:border-primary/40"
+                }`}
+                onClick={() => setActiveStep(activeStep === i ? -1 : i)}
+              >
+                <div className="flex flex-col md:flex-row">
+                  {/* IMAGE */}
+                  <div className="md:w-64 lg:w-80 flex-shrink-0 relative overflow-hidden h-48 md:h-auto">
+                    <img src={step.img} alt={step.title} className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/60 hidden md:block" />
+                    <div className="absolute top-3 left-3">
+                      <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-black/50 backdrop-blur text-white border border-white/20">
+                        {step.badge}
+                      </span>
                     </div>
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <span className="font-display text-3xl font-bold text-muted-foreground/30">{step.num}</span>
-                          <h3 className="font-display text-lg font-semibold">{step.title}</h3>
+                  </div>
+
+                  {/* CONTENT */}
+                  <div className="flex-1 p-6 md:p-8">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex items-center gap-4">
+                        <span className="font-display text-6xl font-bold text-white/10 leading-none select-none">{step.num}</span>
+                        <div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <div className="w-8 h-8 rounded-lg neon-btn flex items-center justify-center">
+                              <Icon name={step.icon} size={16} className="text-white" />
+                            </div>
+                            <h3 className="font-display text-2xl font-bold">{step.title}</h3>
+                          </div>
+                          <p className="text-muted-foreground leading-relaxed text-base">{step.desc}</p>
                         </div>
-                        <Icon name={activeStep === i ? "ChevronUp" : "ChevronDown"} size={18} className="text-muted-foreground" />
                       </div>
-                      {activeStep === i && (
-                        <div className="mt-4 animate-fade-in">
-                          <p className="text-muted-foreground leading-relaxed mb-3">{step.desc}</p>
-                          <div className="flex items-start gap-2 px-4 py-3 rounded-xl bg-primary/10 border border-primary/20">
-                            <Icon name="Lightbulb" size={16} className="text-primary mt-0.5 flex-shrink-0" />
-                            <span className="text-sm text-primary/90">{step.tip}</span>
+                      <Icon name={activeStep === i ? "ChevronUp" : "ChevronDown"} size={20} className="text-muted-foreground flex-shrink-0 mt-1" />
+                    </div>
+
+                    {activeStep === i && (
+                      <div className="mt-5 animate-fade-in">
+                        <div className="flex items-start gap-3 px-5 py-4 rounded-2xl bg-primary/10 border border-primary/25">
+                          <Icon name="Lightbulb" size={18} className="text-primary mt-0.5 flex-shrink-0" />
+                          <div>
+                            <span className="text-sm font-semibold text-primary block mb-0.5">Совет:</span>
+                            <span className="text-sm text-foreground/80">{step.tip}</span>
                           </div>
                         </div>
-                      )}
-                    </div>
+                      </div>
+                    )}
                   </div>
                 </div>
-              ))}
+              </div>
+            ))}
+          </div>
+
+          {/* BOTTOM TOOLS */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* CHECKLIST */}
+            <div className="glass-card neon-border rounded-2xl p-6">
+              <h3 className="font-display text-2xl font-bold mb-2 flex items-center gap-2">
+                <Icon name="ClipboardCheck" size={22} className="text-primary" />
+                Чек-лист готовности
+              </h3>
+              <p className="text-sm text-muted-foreground mb-5">Отметьте всё выполненное — и можно начинать!</p>
+
+              <div className="mb-5">
+                <div className="flex justify-between text-sm mb-2">
+                  <span className="text-muted-foreground">Прогресс</span>
+                  <span className="text-primary font-bold text-lg">{progress}%</span>
+                </div>
+                <div className="progress-track h-3">
+                  <div className="progress-fill" style={{ width: `${progress}%` }} />
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                {CHECKLIST.map((item) => (
+                  <label key={item.id} className="flex items-center gap-3 cursor-pointer group">
+                    <div
+                      className={`w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0 transition-all border-2 ${
+                        checklist[item.id] ? "bg-primary border-primary" : "border-border group-hover:border-primary/60"
+                      }`}
+                      onClick={() => setChecklist((p) => ({ ...p, [item.id]: !p[item.id] }))}
+                    >
+                      {checklist[item.id] && <Icon name="Check" size={14} className="text-white" />}
+                    </div>
+                    <span className={`text-base transition-colors ${checklist[item.id] ? "line-through text-muted-foreground" : "text-foreground"}`}>
+                      {item.label}
+                    </span>
+                  </label>
+                ))}
+              </div>
+
+              {progress === 100 && (
+                <div className="mt-5 p-4 rounded-2xl bg-green-500/10 border border-green-500/30 flex items-center gap-3 animate-fade-in">
+                  <Icon name="PartyPopper" size={20} className="text-green-400" />
+                  <span className="text-base text-green-400 font-bold">Готово к установке! 🎉</span>
+                </div>
+              )}
             </div>
 
-            {/* SIDEBAR */}
-            <div className="space-y-6">
-              {/* CHECKLIST */}
-              <div className="glass-card neon-border rounded-2xl p-6">
-                <h3 className="font-display text-xl font-bold mb-2 flex items-center gap-2">
-                  <Icon name="ClipboardCheck" size={20} className="text-primary" />
-                  Чек-лист
-                </h3>
-                <p className="text-xs text-muted-foreground mb-4">Отметьте выполненные пункты</p>
+            {/* HASH CHECKER */}
+            <div className="glass-card neon-border rounded-2xl p-6 flex flex-col">
+              <h3 className="font-display text-2xl font-bold mb-2 flex items-center gap-2">
+                <Icon name="ShieldCheck" size={22} className="text-cyan-400" />
+                Проверка образа
+              </h3>
+              <p className="text-sm text-muted-foreground mb-5">Вставьте SHA-256 хеш вашего ISO — убедитесь, что файл не подменён вирусами</p>
 
-                <div className="mb-4">
-                  <div className="flex justify-between text-xs mb-1.5">
-                    <span className="text-muted-foreground">Готовность</span>
-                    <span className="text-primary font-semibold">{progress}%</span>
-                  </div>
-                  <div className="progress-track h-2">
-                    <div className="progress-fill" style={{ width: `${progress}%` }} />
-                  </div>
+              <textarea
+                value={hashInput}
+                onChange={(e) => setHashInput(e.target.value)}
+                placeholder="Вставьте хеш сюда..."
+                className="w-full bg-secondary border border-border rounded-xl p-4 text-sm font-mono resize-none h-28 focus:outline-none focus:border-primary transition-colors mb-4"
+              />
+              <button
+                onClick={checkHash}
+                className="w-full neon-btn text-white font-bold py-4 rounded-xl text-base flex items-center justify-center gap-2"
+              >
+                <Icon name="Search" size={18} />
+                Проверить подлинность
+              </button>
+
+              {hashResult && (
+                <div className={`mt-4 p-4 rounded-2xl flex items-center gap-3 animate-fade-in ${
+                  hashResult === "ok" ? "bg-green-500/10 border border-green-500/30" : "bg-red-500/10 border border-red-500/30"
+                }`}>
+                  <Icon name={hashResult === "ok" ? "ShieldCheck" : "ShieldAlert"} size={22} className={hashResult === "ok" ? "text-green-400" : "text-red-400"} />
+                  <span className={`text-base font-bold ${hashResult === "ok" ? "text-green-400" : "text-red-400"}`}>
+                    {hashResult === "ok" ? "✅ Образ подлинный!" : "❌ Хеш не совпадает — файл подменён!"}
+                  </span>
                 </div>
-
-                <div className="space-y-2.5">
-                  {CHECKLIST.map((item) => (
-                    <label key={item.id} className="flex items-center gap-3 cursor-pointer group">
-                      <div
-                        className={`w-5 h-5 rounded flex items-center justify-center flex-shrink-0 transition-all border ${
-                          checklist[item.id] ? "bg-primary border-primary" : "border-border group-hover:border-primary/50"
-                        }`}
-                        onClick={() => setChecklist((p) => ({ ...p, [item.id]: !p[item.id] }))}
-                      >
-                        {checklist[item.id] && <Icon name="Check" size={12} className="text-white" />}
-                      </div>
-                      <span className={`text-sm transition-colors ${checklist[item.id] ? "line-through text-muted-foreground" : "text-foreground"}`}>
-                        {item.label}
-                      </span>
-                    </label>
-                  ))}
-                </div>
-
-                {progress === 100 && (
-                  <div className="mt-4 p-3 rounded-xl bg-green-500/10 border border-green-500/30 flex items-center gap-2 animate-fade-in">
-                    <Icon name="PartyPopper" size={16} className="text-green-400" />
-                    <span className="text-sm text-green-400 font-medium">Готово к установке!</span>
-                  </div>
-                )}
-              </div>
-
-              {/* HASH CHECKER */}
-              <div className="glass-card neon-border rounded-2xl p-6">
-                <h3 className="font-display text-xl font-bold mb-2 flex items-center gap-2">
-                  <Icon name="Hash" size={20} className="text-cyan-400" />
-                  Проверка образа
-                </h3>
-                <p className="text-xs text-muted-foreground mb-4">Вставьте SHA-256 хеш вашего ISO файла</p>
-
-                <textarea
-                  value={hashInput}
-                  onChange={(e) => setHashInput(e.target.value)}
-                  placeholder="Вставьте хеш сюда..."
-                  className="w-full bg-secondary border border-border rounded-xl p-3 text-xs font-mono resize-none h-20 focus:outline-none focus:border-primary transition-colors mb-3"
-                />
-                <button
-                  onClick={checkHash}
-                  className="w-full neon-btn text-white font-semibold py-2.5 rounded-xl text-sm"
-                >
-                  Проверить подлинность
-                </button>
-
-                {hashResult && (
-                  <div className={`mt-3 p-3 rounded-xl flex items-center gap-2 animate-fade-in ${
-                    hashResult === "ok" ? "bg-green-500/10 border border-green-500/30" : "bg-red-500/10 border border-red-500/30"
-                  }`}>
-                    <Icon name={hashResult === "ok" ? "ShieldCheck" : "ShieldAlert"} size={16} className={hashResult === "ok" ? "text-green-400" : "text-red-400"} />
-                    <span className={`text-sm font-medium ${hashResult === "ok" ? "text-green-400" : "text-red-400"}`}>
-                      {hashResult === "ok" ? "Образ подлинный!" : "Хеш не совпадает — образ подменён!"}
-                    </span>
-                  </div>
-                )}
-              </div>
-
-              {/* USB IMAGE */}
-              <div className="rounded-2xl overflow-hidden relative">
-                <img src={USB_IMAGE} alt="Загрузочный USB" className="w-full object-cover h-40" />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent flex items-end p-4">
-                  <span className="text-sm font-medium">Создайте загрузочный USB</span>
-                </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
